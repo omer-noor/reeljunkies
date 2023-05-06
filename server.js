@@ -1,7 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 const app = express();
 const port = process.env.PORT || 5000;
+require('dotenv').config();
+
 
 const commentRoutes = require('./routes/comment');
 const movieRoutes = require('./routes/movie');
@@ -14,10 +17,18 @@ app.use('/movies', movieRoutes);
 app.use('/posts', postRoutes);
 app.use('/users', userRoutes);
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+// Handle any requests that don't match the ones above
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
 // Initialize the server variable outside of the mongoose.connect() call
 let server = null;
 
-mongoose.connect('mongodb://127.0.0.1/moviedatabase', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
