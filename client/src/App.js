@@ -1,11 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import HomePage from './components.js/Homepage';
+import LoginForm from './components/LoginForm';
+import SignupForm from './components/SignupForm';
+import HomePage from './components/Homepage';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-950 via-blue-800 to-blue-950">
+    <div className="font-Inter min-h-screen bg-gradient-to-r from-indigo-950 via-violet-950 to-slate-950">
       <HomePage />
     </div>
   );
