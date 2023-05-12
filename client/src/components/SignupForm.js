@@ -11,7 +11,7 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/users', { username, email, password, country, bio });
+      await axios.post(`${process.env.REACT_APP_API_URL}/users`, { username, email, password, country, bio });
       alert('Account created successfully');
     } catch (error) {
       console.error(error);

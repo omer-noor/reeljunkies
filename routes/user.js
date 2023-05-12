@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const isAuthenticated = require('../middleware/isAuthenticated');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 // GET /users
 router.get('/', async (req, res) => {

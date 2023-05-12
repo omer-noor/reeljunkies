@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
+import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -10,10 +11,11 @@ const LoginForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/users/login', { email, password });
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/login`, {email, password});
             const { token, user } = response.data;
             localStorage.setItem('token', token);
             setUser(user);
+            alert('Logged in!');
         } catch (error) {
             console.error(error);
         }
@@ -52,7 +54,7 @@ const LoginForm = () => {
                     </div>
                     <div className="flex justify-end w-full mt-2 -mr-2">
                         <div className="text-xs p-1 px-4 rounded-xl hover:text-fuchsia-300">
-                            <p>no account? create one</p>
+                            <Link to="/signup" className="mx-4 hover:text-violet-300"> no account? create one </Link>
                         </div>
                     </div>
                 </form>
