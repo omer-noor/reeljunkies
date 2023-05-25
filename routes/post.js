@@ -19,13 +19,12 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const user = await User.findById(req.body.user);
-    const movie = await Movie.findById(req.body.movie);
-    if (!user || !movie) {
-      return res.status(400).json({ message: 'Invalid user or movie ID' });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid user ID' });
     }
     const post = await new Post({
       user: user._id,
-      movie: movie._id,
+      movie: req.body.movie, // movie is now just a string
       title: req.body.title,
       content: req.body.content,
       rating: req.body.rating
@@ -55,11 +54,12 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const post = await Post.findByIdAndUpdate(req.params.id, {
+      movie: req.body.movie, // movie is now just a string
       title: req.body.title,
       content: req.body.content,
       rating: req.body.rating,
       updatedAt: Date.now()
-    }, { new: true }).populate('user movie');
+    }, { new: true }).populate('user'); // don't populate movie as it is no longer a mongoose model
     if (!post) {
       return res.status(404).json({ message: 'Post not found' });
     }

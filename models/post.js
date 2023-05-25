@@ -6,7 +6,7 @@ const postSchema = new mongoose.Schema({
     ref: 'User'
   },
   movie: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'Movie'
   },
   title: {

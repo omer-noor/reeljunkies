@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import SearchBar from './SearchBar';
-import MovieContainer from './MovieContainer'
+import PostFormInput from './PostFormInput';
+import SearchContainer from './SearchContainer';
 
 const PostForm = () => {
+  const [isSelected, setIsSelected] = useState(false);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [rating, setRating] = useState('');
@@ -23,58 +24,37 @@ const PostForm = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+  };  
 
-  const submitSearch
-
+  function FormContainer ({isSelected}) {
+    if(isSelected){
+      return (
+        <>
+        <PostFormInput
+          title={title}
+          setTitle={setTitle}
+          content={content}
+          setContent={setContent}
+          rating={rating}
+          setRating={setRating}
+          user={user}
+          setUser={setUser}
+          setMovie={setMovie}
+          handleSubmit={handleSubmit} />          
+        </>
+      );
+    }
+    else{
+      return <SearchContainer/>;
+    }
+  }
+  
   return (
-    <div className="font-inter flex flex-col items-center p-6 rounded-lg text-white max-w-5xl mx-auto">
-      <div
-        className={`p-6 flex flex-row justify-between outline outline-1 outline-white/50 mt-5 rounded-xl bg-gradient-to-r from-indigo-800
-                  to-violet-600 mx-auto drop-shadow-2xl relative gap-y-4`}
-      >
-        <form onSubmit={handleSubmit}>
-          <h2 className='text-xl mb-4'>post review</h2>
-          <div>
-            <input 
-              className="rounded-xl p-2 text-indigo-900 w-full"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Title"
-            />
-            <textarea
-              className="rounded-xl p-2 text-indigo-900 w-full mt-2"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="Write your post here..."
-              rows="4"
-            />
-            <input 
-              className="rounded-xl p-2 text-indigo-900 w-full mt-2"
-              type="number"
-              min="0"
-              max="5"
-              step="0.1"
-              value={rating}
-              onChange={(e) => setRating(e.target.value)}
-              placeholder="Rating (0-5)"
-            />
-            <input 
-              className="rounded-xl p-2 text-indigo-900 w-full mt-2"
-              type="text"
-              value={user}
-              onChange={(e) => setUser(e.target.value)}
-              placeholder="User ID"
-            />
-            <MovieContainer onSubmit={submitSearch}/>
-          </div>
-          <div className="flex justify-end w-full mt-3">
-            <div className="bg-fuchsia-500 p-1 px-4 rounded-xl hover:bg-fuchsia-600">
-              <button type="submit">Post</button>
-            </div>
-          </div>
-        </form>
+    <div className="font-inter items-center p-6 rounded-lg text-white w-1/3 max-w-1/3 mx-auto">      
+      <div className={`p-6 flex flex-col justify-between outline outline-1 outline-white/50 mt-5 rounded-xl bg-gradient-to-r from-indigo-800
+                  to-violet-600 mx-auto drop-shadow-2xl relative gap-y-4`}>     
+        <h1>post a review</h1>        
+        <FormContainer isSelected={isSelected}/>      
       </div>
     </div>
   );
