@@ -16,6 +16,14 @@ router.get('/', async (req, res) => {
   }
 });
 
+// GET /user by token
+router.get('/token', isAuthenticated, (req, res) => {
+  console.log("HERE")
+  User.findById(req.userId)
+    .then(user => res.json(user))
+    .catch(err => res.status(500).json({ message: 'Something went wrong' }));
+});
+
 // POST /users
 router.post('/', async (req, res) => {
   try {

@@ -6,8 +6,9 @@ const postSchema = new mongoose.Schema({
     ref: 'User'
   },
   movie: {
-    type: String,
-    ref: 'Movie'
+    id: Number,
+    title: String,
+    director: String
   },
   title: {
     type: String,

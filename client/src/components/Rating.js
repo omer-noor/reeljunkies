@@ -1,14 +1,15 @@
 //src/components/Rating/Rating.js
 import React from 'react';
 
-function Rating({ rating }) {  
-  const filledStars = rating.toFixed(2);  
-  const emptyStars = 2;
+function Rating({ rating,color }) {  
+  const filledStars = Math.round(rating);  
+  const emptyStars = 5 - filledStars;
+  const bgColor = color||'bg-violet-500'
 
   console.log(rating,filledStars,emptyStars)
 
   return (
-    <div className="inline-flex items-center bg-violet-600 p-1 px-4 rounded-full">
+    <div className={`inline-flex items-center ${bgColor} p-1 px-4 rounded-full`}>
       {Array(filledStars)
         .fill()
         .map((_, index) => (

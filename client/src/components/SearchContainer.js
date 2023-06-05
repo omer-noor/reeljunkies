@@ -6,9 +6,10 @@ import SmallMovie from './SmallMovie';
 const config = require('../config');
 const apiKey = config.API_KEY
 
-function SearchContainer() {
+function SearchContainer(props) {  
   const [movieData, setMovieData] = useState({ data: { results: [] } });
   const [searchQuery, setSearchQuery] = useState("");
+  const {setMovie,setIsSelected,setUser} = props;
 
   useEffect(() => {
     async function fetchMovieData() {
@@ -65,8 +66,8 @@ function SearchContainer() {
       </div>
       {movieData && (
         <div className="max-h-96 overflow-y-auto w-full max-w-2xl min-w-full scrollbar-thin scrollbar-thumb-fuchsia-600 scrollbar-track-violet-500">
-          {movieData.data.results.map(movie => (
-            <SmallMovie key={movie.id} data={movie} director={movie.director} />
+          {movieData.data.results.map(movie => (            
+            <SmallMovie setMovie={setMovie} setUser={setUser} setIsSelected={setIsSelected} key={movie.id} data={movie} director={movie.director} />
           ))}
         </div>
       )}

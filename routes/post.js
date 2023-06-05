@@ -7,13 +7,27 @@ const Movie = require('../models/movie');
 // GET all posts
 router.get('/', async (req, res) => {
   try {
-    const posts = await Post.find().populate('user movie');
+    const posts = await Post.find().populate('user movie').sort({ createdAt: -1 });
     res.json(posts);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+//Get posts by a user
+router.get('/user/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const posts = await Post.find({ user: userId }).populate('user movie').sort({ updatedAt: -1 });
+    res.json(posts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 
 // POST a new post
 router.post('/', async (req, res) => {
@@ -24,7 +38,11 @@ router.post('/', async (req, res) => {
     }
     const post = await new Post({
       user: user._id,
-      movie: req.body.movie, // movie is now just a string
+      movie: {
+        id: req.body.movie.id,
+        title: req.body.movie.title,
+        director: req.body.movie.director
+      },
       title: req.body.title,
       content: req.body.content,
       rating: req.body.rating
@@ -32,9 +50,10 @@ router.post('/', async (req, res) => {
     res.status(201).json(post);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: error.message });
   }
 });
+
 
 // GET a post by ID
 router.get('/:id', async (req, res) => {

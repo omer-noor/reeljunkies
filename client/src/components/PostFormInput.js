@@ -1,12 +1,16 @@
-import React from 'react';
-import PostForm from './PostForm';
+import React,{useContext} from 'react';
 
-const PostFormInput = ({ handleSubmit, title, setTitle, content, setContent, rating, setRating, user, setUser, setMovie }) => {
+const PostFormInput = ({ handleCancel, title, setTitle, content, setContent,
+  rating, setRating, user, setUser, handleSubmit, movie }) => { 
+
   return (
     <form onSubmit={handleSubmit}>
-      <h2 className='text-xl mb-4'>post review</h2>
       <div>
-        <input 
+        <h2 className='text-xl ml-1 mb-1'>reviewing</h2>
+        <h3 className='bg-sky-500 p-1 px-4 rounded-xl hover:bg-sky-600 mb-2'>{movie.title}</h3>
+      </div>
+      <div>
+        <input
           className="rounded-xl p-2 text-indigo-900 w-full"
           type="text"
           value={title}
@@ -20,7 +24,7 @@ const PostFormInput = ({ handleSubmit, title, setTitle, content, setContent, rat
           placeholder="Write your post here..."
           rows="4"
         />
-        <input 
+        <input
           className="rounded-xl p-2 text-indigo-900 w-full mt-2"
           type="number"
           min="0"
@@ -30,18 +34,19 @@ const PostFormInput = ({ handleSubmit, title, setTitle, content, setContent, rat
           onChange={(e) => setRating(e.target.value)}
           placeholder="Rating (0-5)"
         />
-        <input 
-          className="rounded-xl p-2 text-indigo-900 w-full mt-2"
+        <input
+          className="rounded-xl p-2 text-indigo-100 w-full mt-2"
           type="text"
-          value={user}
+          value={`posting as ${user.username}`}
           onChange={(e) => setUser(e.target.value)}
           placeholder="User ID"
-        />        
+          disabled
+        />
       </div>
       <div className="flex justify-end w-full mt-3">
-        <div className="bg-fuchsia-500 p-1 px-4 rounded-xl hover:bg-fuchsia-600">
+        <div className="bg-green-500 p-1 px-4 rounded-xl hover:bg-fuchsia-600">
           <button type="submit">Post</button>
-        </div>
+        </div>        
       </div>
     </form>
   );

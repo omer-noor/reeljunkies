@@ -1,24 +1,45 @@
-import React from 'react';
-import { useAuth } from './AuthContext';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import dateFormat from 'dateformat';
+import PostViewContainer from './PostViewContainer'
 
-function UserPage(props) {  
-  const { user, setUser } = useAuth();
-  props = user;
-  const username = props.username;
-  const bio = props.bio;
-  const country = props.country;
-  const email = props.email;
-  let created = dateFormat(props.createdAt, "dddd, mmmm dS, yyyy, h:MM:ss TT");  
-  let updated = dateFormat(props.updatedAt, "dddd, mmmm dS, yyyy, h:MM:ss TT");  
+function UserPage({ match }) {
+  const [user,setUser] = useState(null)
+  const { userId } = useParams();
+
+  useEffect(() => {
+    async function fetchUserById() {
+      try {
+        let response;
+        response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/users/${userId}`
+        );
+        setUser(response.data);
+      } catch (error) {
+        console.error(error, "Error");
+      }
+    }
+    fetchUserById();
+  }, [userId]);  
   
+  if(!user){
+    return(<div>Loading...</div>)
+  }
+  const username = user.username;
+  const bio = user.bio;
+  const country = user.country;
+  const email = user.email;
+  let created = dateFormat(user.createdAt, "dddd, mmmm dS, yyyy, h:MM:ss TT");
+  let updated = dateFormat(user.updatedAt, "dddd, mmmm dS, yyyy, h:MM:ss TT");
+
 
   return (
     <div className='font-inter flex flex-col min-w-full min-h-1/3 justify-center items-center p-6 rounded-lg text-white'>
-      <div className='w-full md:w-1/2 lg:w-1/3 mx-auto'>
+      <div className='w-full max-w-5xl mx-auto'>
         <div className={`p-6 flex flex-row outline outline-1 outline-white/50 mt-5 rounded-xl bg-gradient-to-r from-indigo-800
            to-violet-600 mx-auto drop-shadow-2xl relative`}>
-          <div className="text-left -mt-4 p-4">            
+          <div className="text-left -mt-4 p-4">
             <Username username={username} email={email} />
             <Bio bio={bio} />
             <Country country={country} />
@@ -26,9 +47,11 @@ function UserPage(props) {
           </div>
         </div>
       </div>
+      <h1 className='mt-10 -mb-5 text-2xl'>{username}'s reviews</h1>
+      <PostViewContainer user={userId}/>
     </div>
   );
-  
+
 }
 
 function Username(props) {
@@ -37,8 +60,8 @@ function Username(props) {
   return (
     <div className='mb-5'>
       <div>
-      <h2 className='font-extrabold pb-2 text-transparent text-6xl bg-clip-text bg-gradient-to-r from-fuchsia-300 to-purple-400'>{username}</h2>
-      </div>      
+        <h2 className='font-extrabold pb-2 text-transparent text-6xl bg-clip-text bg-gradient-to-r from-fuchsia-300 to-purple-400'>{username}</h2>
+      </div>
       <h2 className='-mt-2 text-1xl'>{email}</h2>
     </div>
   );
