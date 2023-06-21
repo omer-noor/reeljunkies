@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "node server.js",
+    "server": "ts-node server.ts",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"nodemon server.js\" \"npm start --prefix client\" \"npm run watch:css\"",
+    "dev": "concurrently \"nodemon --watch 'src/**/*' -e ts,tsx server.ts\" \"npm start --prefix client\" \"npm run watch:css\"",
     "test": "jest",
     "build:css": "tailwindcss build client/src/tailwind.css -o client/src/tailwind.output.css",
     "watch:css": "tailwindcss build client/src/tailwind.css -o client/src/tailwind.output.css --watch"
-  },
+  },  
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -41,6 +41,8 @@
     "jest-css-modules": "^2.1.0",
     "supertest": "^6.2.2",
     "tailwind-scrollbar": "^3.0.4",
-    "tailwindcss": "^3.3.2"
+    "tailwindcss": "^3.3.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.3"
   }
 }
