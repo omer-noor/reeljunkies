@@ -7,14 +7,14 @@ import PostViewContainer from './PostViewContainer';
 
 
 const HomePage = () => {  
-  console.log("HOMERENDER")
-  const { isPostFormVisible, setIsPostFormVisible } = useContext(NavbarContext);
+  const navbarContext = useContext(NavbarContext); 
+  const { isPostFormVisible, setIsPostFormVisible } = navbarContext;
 
   return (
     <div className='subpixel-antialiased'>  
      {isPostFormVisible && <PostForm/>}  
     <FeaturedMovies/>  
-    <PostViewContainer/>  
+    <PostViewContainer user={undefined}/>  
     </div>
   );
 };

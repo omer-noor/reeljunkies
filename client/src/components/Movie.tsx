@@ -1,7 +1,7 @@
 import React from 'react';
 import Rating from './Rating';
 
-function Movie(props) {
+function Movie(props:any) {
   props = props.data;
   console.log('Props are', props)
   const posterUrl = props.poster_path? props.poster_path: 'https://image.tmdb.org/t/p/original//vbLxDKfo8fYC8ISKKrJczNbGKLP.jpg' ;
@@ -39,7 +39,7 @@ function Movie(props) {
   );
 }
 
-function Name(props) {
+function Name(props:any) {
   const { name } = props;
 
   return (
@@ -49,7 +49,7 @@ function Name(props) {
   );
 }
 
-function Year(props) {
+function Year(props:any) {
   const { yearReleased } = props;
 
   return (
@@ -59,17 +59,17 @@ function Year(props) {
   );
 }
 
-function DirectedBy(props) {
+function DirectedBy(props:any) {
   const { directedBy } = props;
 
   return (
     <div>
-      <p><span class="font-bold">Directed by:</span> <span className='inline-block mb-1 bg-fuchsia-500 p-1 px-4 rounded-full'>{directedBy}</span></p>
+      <p><span className="font-bold">Directed by:</span> <span className='inline-block mb-1 bg-fuchsia-500 p-1 px-4 rounded-full'>{directedBy}</span></p>
     </div>
   );
 }
 
-function Description(props) {
+function Description(props:any) {
   const { description } = props;
 
   return (

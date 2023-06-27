@@ -2,6 +2,9 @@ const request = require('supertest');
 const { app, start, stop } = require('../server');
 const Movie = require('../models/movie');
 const { generateMovie } = require('../faker/fakeData');
+import { IMovie } from '../models/movie';
+
+export{};
 
 // Describe block to group related tests for Movie Routes
 describe('Movie Routes', () => {
@@ -13,10 +16,10 @@ describe('Movie Routes', () => {
   // Test GET all movies route
   test('GET /movies', async () => {
     // Add some test data
-    const movies = [];
+    const movies: IMovie[] = [];
     for (let i = 0; i < 2; i++) {
       const fakeMovie = generateMovie();
-      const movie = new Movie(fakeMovie);
+      const movie: IMovie = new Movie(fakeMovie);
       await movie.save();
       movies.push(movie);
     }

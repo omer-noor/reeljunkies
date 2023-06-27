@@ -8,6 +8,8 @@ const Comment = require('../models/comment');
 const { TextEncoder } = require('util');
 global.TextEncoder = TextEncoder;
 
+
+export{};
 describe('User routes', () => {
   let user; 
   

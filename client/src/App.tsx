@@ -11,10 +11,16 @@ import SignupForm from './components/SignupForm';
 import UserPage from './components/UserPage';
 import PostForm from './components/PostForm';
 
-const NavbarContext = createContext();
+interface NavbarContextType {  
+  
+  isPostFormVisible: boolean;
+  setIsPostFormVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const NavbarContext = createContext<NavbarContextType>({ isPostFormVisible: false, setIsPostFormVisible: () => {} });
 
 function App() {
-  const [isPostFormVisible, setIsPostFormVisible] = useState(''); // Or initial state of your choice
+  const [isPostFormVisible, setIsPostFormVisible] = useState(false); 
   return (
     <div className="font-Inter min-h-screen bg-gradient-to-r from-indigo-950 via-violet-950 to-slate-950">
       <Router>

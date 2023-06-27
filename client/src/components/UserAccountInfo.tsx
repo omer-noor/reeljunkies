@@ -3,12 +3,19 @@ import axios from 'axios';
 import { useAuth } from './AuthContext';
 
 const UserAccountInfo = () => {
-  const { user, setUser } = useAuth();
-  const [username, setUsername] = useState(user.username);
+  const { user, setUser } = useAuth()!;
+  
+  const [username, setUsername] = useState(user? user.username:'');
   const [password, setPassword] = useState('');
-  const [country, setCountry] = useState(user.country || '');
+  const [country, setCountry] = useState(user? user.country:'');
 
-  const handleSubmit = async (e) => {
+  if  (!user){
+    return(
+      <div>User is null</div>
+    )
+  }
+
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     try {
       const updatedUser = await axios.patch(`/users/${user._id}`, {

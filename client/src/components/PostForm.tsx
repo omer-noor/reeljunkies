@@ -3,6 +3,7 @@ import axios from 'axios';
 import PostFormInput from './PostFormInput';
 import SearchContainer from './SearchContainer';
 import { NavbarContext } from '../App';
+import { IUser } from '../../../models/user';
 
 const PostForm = () => {
   console.log("POSTFORMRENDER")
@@ -11,23 +12,26 @@ const PostForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [rating, setRating] = useState('');
-  const [user, setUser] = useState(''); // assuming this would be user id
+  const [user, setUser] = useState<IUser|null>(null); // assuming this would be user id
   const [movie, setMovie] = useState({ id: '', title: '', director: '' });
 
-  const handleCancel = (e) => {
+  const handleCancel = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     setIsPostFormVisible(false);
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    try {
-      console.log(user, title, movie, "HERE")
-      await axios.post(`${process.env.REACT_APP_API_URL}/posts`, { title, content, rating, user: user._id, movie });
-      alert('Post created successfully');
-      setIsPostFormVisible(false);
-    } catch (error) {
-      console.error(error);
+    if (user) {
+      try {
+          await axios.post(`${process.env.REACT_APP_API_URL}/posts`, { title, content, rating, user: user._id, movie });
+          alert('Post created successfully');
+          setIsPostFormVisible(false);
+      } catch (error) {
+          console.error(error);
+      }
+    } else {
+      console.error("User is missing");
     }
   };
 

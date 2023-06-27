@@ -1,7 +1,7 @@
 import React from 'react';
 
-function SearchBar(props) {
-  function handleChange(event) {
+function SearchBar(props: { onChange: (arg0: any, arg1: any) => void; placeholder: any; }) {
+  function handleChange(event: { target: { value: any; }; }) {
     const value = event.target.value;
     console.log('SearchBar value:', value);
     props.onChange(event, value);

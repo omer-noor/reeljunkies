@@ -7,7 +7,7 @@ const config = require('../config');
 const apiKey = config.API_KEY
 
 
-function PostView(props) {
+function PostView(props:any) {
   const navigate = useNavigate(); 
   props = props.data;
   console.log(props,"PREEsPS")
@@ -18,7 +18,7 @@ function PostView(props) {
   const rating = props.rating;
   const createdAt = new Date(props.createdAt).toDateString();
 
-  const [movieData, setMovieData] = useState(null);
+  const [movieData, setMovieData] = useState<any | null>(null);
 
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -26,7 +26,7 @@ function PostView(props) {
   
 
   useEffect(() => {
-    async function fetchMovieData(movieID) {
+    async function fetchMovieData(movieID:string) {
       try {
         const response = await axios.get(
           `https://api.themoviedb.org/3/movie/${movieID}?api_key=${apiKey}`
@@ -79,7 +79,7 @@ function PostView(props) {
   );
 }
 
-function Content(props) {
+function Content(props:any) {
   const { content } = props;
 
   return (
@@ -90,7 +90,7 @@ function Content(props) {
 }
 
 
-function Title(props) {
+function Title(props:any) {
   const { title } = props;
 
   return (
@@ -100,7 +100,7 @@ function Title(props) {
   );
 }
 
-function MovieInfo(props) {
+function MovieInfo(props:any) {
   const { movie } = props;
 
   if (!movie || !movie.title) {
@@ -115,7 +115,7 @@ function MovieInfo(props) {
   );
 }
 
-function CreatedAt(props) {
+function CreatedAt(props:any) {
   const { createdAt } = props;
 
   return (
@@ -125,7 +125,7 @@ function CreatedAt(props) {
   );
 }
 
-function ReviewedBy(props) {  
+function ReviewedBy(props:any) {  
   const user=props.user
   return (
     <div className='inline-block mt-4'>

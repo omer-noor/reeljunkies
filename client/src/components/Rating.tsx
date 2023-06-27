@@ -1,7 +1,12 @@
 //src/components/Rating/Rating.js
 import React from 'react';
 
-function Rating({ rating,color }) {  
+type RatingProps = {
+  rating: number;
+  color?: string;
+};
+
+function Rating({ rating, color = 'bg-violet-500' }: RatingProps) {  
   const filledStars = Math.round(rating);  
   const emptyStars = 5 - filledStars;
   const bgColor = color||'bg-violet-500'
@@ -11,7 +16,7 @@ function Rating({ rating,color }) {
   return (
     <div className={`inline-flex items-center ${bgColor} p-1 px-4 rounded-full`}>
       {Array(filledStars)
-        .fill()
+        .fill(undefined)
         .map((_, index) => (
           <svg
             key={index}
@@ -26,7 +31,7 @@ function Rating({ rating,color }) {
           </svg>
         ))}
       {Array(emptyStars)
-        .fill()
+        .fill(undefined)
         .map((_, index) => (
           <svg
             key={index}

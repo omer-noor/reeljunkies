@@ -6,6 +6,7 @@ const Movie = require('../models/movie');
 const Comment = require('../models/comment');
 const { generateUser, generateMovie, generatePost } = require('../faker/fakeData');
 
+export{};
 // Add beforeAll and afterAll hooks to start and stop the server
 test('GET /posts/:id', async () => {
   const user = await User.create(generateUser());

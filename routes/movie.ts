@@ -1,9 +1,10 @@
+export{};
 const express = require('express');
 const router = express.Router();
 const Movie = require('../models/movie');
 
 // GET /movies
-router.get('/', async (req, res) => {
+router.get('/', async (req: any, res: { json: (arg0: any) => void; status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; }) => {
   try {
     const movies = await Movie.find();
     res.json(movies);
@@ -14,7 +15,7 @@ router.get('/', async (req, res) => {
 });
 
 // POST /movies
-router.post('/', async (req, res) => {
+router.post('/', async (req: { body: { name: any; poster: any; releaseDate: any; director: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; }) => {
   try {
     const movie = new Movie({
       name: req.body.name,
@@ -32,7 +33,7 @@ router.post('/', async (req, res) => {
 });
 
 // GET /movies/:id
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req: { params: { id: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; json: (arg0: any) => void; }) => {
   try {
     const movie = await Movie.findById(req.params.id);
     if (!movie) {
@@ -46,7 +47,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // PUT /movies/:id
-router.put('/:id', async (req, res) => {
+router.put('/:id', async (req: { params: { id: any; }; body: { name: any; poster: any; releaseDate: any; director: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; json: (arg0: any) => void; }) => {
   try {
     const movie = await Movie.findByIdAndUpdate(req.params.id, {
       name: req.body.name,
@@ -66,7 +67,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE /movies/:id
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req: { params: { id: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; json: (arg0: { message: string; }) => void; }) => {
   try {
     const movie = await Movie.findByIdAndDelete(req.params.id);
     if (!movie) {
@@ -80,3 +81,4 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
+

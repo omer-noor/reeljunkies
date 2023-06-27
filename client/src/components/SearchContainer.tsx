@@ -6,8 +6,8 @@ import SmallMovie from './SmallMovie';
 const config = require('../config');
 const apiKey = config.API_KEY
 
-function SearchContainer(props) {  
-  const [movieData, setMovieData] = useState({ data: { results: [] } });
+function SearchContainer(props: { setMovie: any; setIsSelected: any; setUser: any; }) {  
+  const [movieData, setMovieData] = useState<{ data: { results: any[] } } | null>({ data: { results: [] } });
   const [searchQuery, setSearchQuery] = useState("");
   const {setMovie,setIsSelected,setUser} = props;
 
@@ -20,7 +20,7 @@ function SearchContainer(props) {
         );
 
         const moviesWithDirectors = await Promise.all(
-          response.data.results.map(async (movie) => {
+          response.data.results.map(async (movie: { id: any; }) => {
             const director = await fetchDirectorData(movie.id);
             return { ...movie, director };
           })
@@ -32,13 +32,13 @@ function SearchContainer(props) {
       }
     }
 
-    async function fetchDirectorData(movieID) {
+    async function fetchDirectorData(movieID: any) {
       try {
         const response = await axios.get(
           `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${apiKey}`
         );
 
-        const director = response.data.crew.find(({ job }) => job === "Director");
+        const director = response.data.crew.find(({ job }:{job:string}) => job === "Director");
         return director ? director.name : "";
       } catch (error) {
         console.error(error);
@@ -54,7 +54,7 @@ function SearchContainer(props) {
     }, [searchQuery]);
 
 
-  function handleSearch(event, query) {
+  function handleSearch(event: { preventDefault: () => void; }, query: React.SetStateAction<string>) {
     event.preventDefault();
     setSearchQuery(query);
   }

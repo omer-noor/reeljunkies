@@ -1,7 +1,7 @@
 import React from 'react';
 import Rating from './Rating';
  
-function VerticalMovie(props) {
+function VerticalMovie(props:any) {
   props = props.data;
   console.log('Props are', props)
   const posterUrl = props.poster_path ? props.poster_path : 'https://image.tmdb.org/t/p/original//vbLxDKfo8fYC8ISKKrJczNbGKLP.jpg';
@@ -35,7 +35,7 @@ function VerticalMovie(props) {
   );
 }
 
-function Name(props) {
+function Name(props: { name: any; }) {
   const { name } = props;
 
   return (
@@ -45,7 +45,7 @@ function Name(props) {
   );
 }
 
-function Year(props) {
+function Year(props: { yearReleased: any; }) {
   const { yearReleased } = props;
 
   return (
@@ -55,7 +55,7 @@ function Year(props) {
   );
 }
 
-function DirectedBy(props) {
+function DirectedBy(props: { directedBy: any; }) {
   const { directedBy } = props;
 
   return (
@@ -65,7 +65,7 @@ function DirectedBy(props) {
   );
 }
 
-function Description(props) {
+function Description(props: { description: any; }) {
   const { description } = props;
 
   return (

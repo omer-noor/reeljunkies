@@ -3,9 +3,10 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import dateFormat from 'dateformat';
 import PostViewContainer from './PostViewContainer'
+import { IUser } from '../../../models/user';
 
-function UserPage({ match }) {
-  const [user,setUser] = useState(null)
+function UserPage() {
+  const [user,setUser] = useState<IUser|null>(null)
   const { userId } = useParams();
 
   useEffect(() => {
@@ -48,13 +49,13 @@ function UserPage({ match }) {
         </div>
       </div>
       <h1 className='mt-10 -mb-5 text-2xl'>{username}'s reviews</h1>
-      <PostViewContainer user={userId}/>
+      <PostViewContainer userId={userId}/>
     </div>
   );
 
 }
 
-function Username(props) {
+function Username(props: { username: any; email: any; }) {
   const { username, email } = props;
 
   return (
@@ -67,7 +68,7 @@ function Username(props) {
   );
 }
 
-function Bio(props) {
+function Bio(props: { bio: any; }) {
   const { bio } = props;
 
   return (
@@ -77,7 +78,7 @@ function Bio(props) {
   );
 }
 
-function Country(props) {
+function Country(props: { country: any; }) {
   const { country } = props;
 
   return (
@@ -87,7 +88,7 @@ function Country(props) {
   );
 }
 
-function Updated(props) {
+function Updated(props: { created: any; updated: any; }) {
   const { created, updated } = props;
 
   return (

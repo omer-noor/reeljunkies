@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Movie from './Movie';
 import SearchBar from './SearchBar';
 import axios from 'axios';
+import { IMovie } from '../../../models/movie';
 const config = require('../config');
 const apiKey = config.API_KEY
 
 function MovieContainer() {
-  const [movieData, setMovieData] = useState({ data: { results: [] } });
+  const [movieData, setMovieData] = useState<{ data: { results: any[] } } | null>({ data: { results: [] } });
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -18,8 +19,8 @@ function MovieContainer() {
         );
 
         const moviesWithDirectors = await Promise.all(
-          response.data.results.map(async (movie) => {
-            const director = await fetchDirectorData(movie.id);
+          response.data.results.map(async (movie:IMovie) => {
+            const director = await fetchDirectorData(movie._id);
             return { ...movie, director };
           })
         );
@@ -30,13 +31,13 @@ function MovieContainer() {
       }
     }
 
-    async function fetchDirectorData(movieID) {
+    async function fetchDirectorData(movieID:string) {
       try {
         const response = await axios.get(
           `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${apiKey}`
         );
 
-        const director = response.data.crew.find(({ job }) => job === "Director");
+        const director = response.data.crew.find(( {job}:{job:string} ) => job === "Director");
         return director ? director.name : "";
       } catch (error) {
         console.error(error);
@@ -52,14 +53,14 @@ function MovieContainer() {
     }, [searchQuery]);
 
 
-  function handleSearch(event, query) {
+  function handleSearch(event: { preventDefault: () => void; }, query: React.SetStateAction<string>) {
     event.preventDefault();
     setSearchQuery(query);
   }
 
   return (
     <div className='font-inter flex flex-col items-center p-6 rounded-lg text-white max-w-5xl mx-auto'>
-      <SearchBar onChange={handleSearch} />
+      <SearchBar onChange={handleSearch} placeholder="Enter a movie title" />
       {movieData && (
         <div>
           {movieData.data.results.map(movie => (

@@ -1,6 +1,19 @@
+import { Document,Schema } from "mongoose";
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+
+export interface IUser extends Document {
+  _id: string;
+  username: string;
+  email: string;
+  password: string;
+  country?: string;
+  bio?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -28,7 +41,12 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-userSchema.pre('save', async function(next) {
+interface UserDocument extends Document {
+  password: string;
+  // Other properties of the User document
+}
+
+userSchema.pre('save', async function(this: UserDocument, next:any) {
   if (this.isModified('password') || this.isNew) {
     try {
       const hashedPassword = await bcrypt.hash(this.password, saltRounds);
@@ -44,4 +62,4 @@ userSchema.pre('save', async function(next) {
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+module.exports=User;

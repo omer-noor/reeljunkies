@@ -1,4 +1,20 @@
+export{};
 const mongoose = require('mongoose');
+
+export interface IPost {
+  _id: string;
+  user: string; // This is the ID of the User, stored as a string
+  movie: {
+    id: number;
+    title: string;
+    director: string;
+  };
+  title: string;
+  content: string;
+  rating: number;
+  createdAt?: Date; // "?" denotes this field is optional, because it has a default value
+  updatedAt?: Date; // same here
+}
 
 const postSchema = new mongoose.Schema({
   user: {
@@ -34,4 +50,6 @@ const postSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Post', postSchema);
+const Post = mongoose.model('Post', postSchema);
+module.exports=Post;
+

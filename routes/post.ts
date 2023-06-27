@@ -1,3 +1,4 @@
+export{};
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/post');
@@ -5,7 +6,7 @@ const User = require('../models/user');
 const Movie = require('../models/movie');
 
 // GET all posts
-router.get('/', async (req, res) => {
+router.get('/', async (req: any, res: { json: (arg0: any) => void; status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; }) => {
   try {
     const posts = await Post.find().populate('user movie').sort({ createdAt: -1 });
     res.json(posts);
@@ -16,7 +17,7 @@ router.get('/', async (req, res) => {
 });
 
 //Get posts by a user
-router.get('/user/:userId', async (req, res) => {
+router.get('/user/:userId', async (req: { params: { userId: any; }; }, res: { json: (arg0: any) => void; status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; }) => {
   try {
     const { userId } = req.params;
     const posts = await Post.find({ user: userId }).populate('user movie').sort({ updatedAt: -1 });
@@ -30,7 +31,7 @@ router.get('/user/:userId', async (req, res) => {
 
 
 // POST a new post
-router.post('/', async (req, res) => {
+router.post('/', async (req: { body: { user: any; movie: { id: any; title: any; director: any; }; title: any; content: any; rating: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: any; }): void; new(): any; }; }; }) => {
   try {
     const user = await User.findById(req.body.user);
     if (!user) {
@@ -48,7 +49,7 @@ router.post('/', async (req, res) => {
       rating: req.body.rating
     }).save();
     res.status(201).json(post);
-  } catch (error) {
+  } catch (error:any) {
     console.error(error);
     res.status(500).json({ message: error.message });
   }
@@ -56,7 +57,7 @@ router.post('/', async (req, res) => {
 
 
 // GET a post by ID
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req: { params: { id: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; json: (arg0: any) => void; }) => {
   try {
     const post = await Post.findById(req.params.id).populate('user movie');
     if (!post) {
@@ -70,7 +71,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // PUT update a post by ID
-router.put('/:id', async (req, res) => {
+router.put('/:id', async (req: { params: { id: any; }; body: { movie: any; title: any; content: any; rating: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; json: (arg0: any) => void; }) => {
   try {
     const post = await Post.findByIdAndUpdate(req.params.id, {
       movie: req.body.movie, // movie is now just a string
@@ -90,7 +91,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE a post by ID
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req: { params: { id: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; json: (arg0: { message: string; }) => void; }) => {
   try {
     const post = await Post.findByIdAndDelete(req.params.id);
     if (!post) {
@@ -104,3 +105,4 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
+

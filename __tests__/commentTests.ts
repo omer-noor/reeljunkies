@@ -11,6 +11,9 @@ const {
   generateComment,
 } = require('../faker/fakeData');
 
+
+export{};
+
 describe('Comment Routes', () => {  
   
   // Before each test, clear the Comments collection

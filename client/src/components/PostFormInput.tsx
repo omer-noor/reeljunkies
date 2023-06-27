@@ -1,7 +1,19 @@
 import React,{useContext} from 'react';
 
-const PostFormInput = ({ handleCancel, title, setTitle, content, setContent,
-  rating, setRating, user, setUser, handleSubmit, movie }) => { 
+const PostFormInput = (props: any) => {
+  const {
+    handleCancel,
+    title,
+    setTitle,
+    content,
+    setContent,
+    rating,
+    setRating,
+    user,
+    setUser,
+    handleSubmit,
+    movie
+  } = props;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -22,7 +34,7 @@ const PostFormInput = ({ handleCancel, title, setTitle, content, setContent,
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Write your post here..."
-          rows="4"
+          rows={4}
         />
         <input
           className="rounded-xl p-2 text-indigo-900 w-full mt-2"

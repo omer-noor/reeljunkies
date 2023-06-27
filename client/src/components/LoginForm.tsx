@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const { setUser } = useAuth();
+    const [password, setPassword] = useState('');    
+    const { setUser } = useAuth()!;
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/login`, {email, password});

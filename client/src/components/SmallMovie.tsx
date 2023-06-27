@@ -2,8 +2,8 @@ import React from 'react';
 import Rating from './Rating';
 import { useAuth } from './AuthContext';
 
-function SmallMovie(props) {
-  const { signOut, user } = useAuth();
+function SmallMovie(props: { data?: any; poster_path?: any; title?: any; id?: any; release_date?: any; vote_average?: any; director?: any; overview?: any; backdrop_path?: any; setMovie?: any; setIsSelected?: any; setUser?: any; }) {
+  const { signOut, user } = useAuth()!;
   const {setMovie,setIsSelected,setUser} = props;
   props = props.data;
   console.log('Props are', props)
@@ -17,7 +17,7 @@ function SmallMovie(props) {
   const backgroundURL = props.backdrop_path ? `https://image.tmdb.org/t/p/original/${props.backdrop_path}` : 'https://image.tmdb.org/t/p/original//g03h9TULzJZOoXA34Abp5LE7lvt.jpg';
   
 
-  const submitMovie = async (e) =>{
+  const submitMovie = async (e: { preventDefault: () => void; }) =>{
     e.preventDefault();
     try{
       console.log(id)
@@ -59,7 +59,7 @@ function SmallMovie(props) {
   );
 }
 
-function Name(props) {
+function Name(props: { name: any; }) {
   const { name } = props;
 
   return (
@@ -69,7 +69,7 @@ function Name(props) {
   );
 }
 
-function Year(props) {
+function Year(props: { yearReleased: any; }) {
   const { yearReleased } = props;
 
   return (
@@ -79,20 +79,20 @@ function Year(props) {
   );
 }
 
-function DirectedBy(props) {
+function DirectedBy(props: { directedBy: any; }) {
   const { directedBy } = props;
 
   return (
     <div>
-      <p><span class="font-bold text-sm">Directed by:</span> <span className='inline-block mb-1 text-sm bg-fuchsia-500 p-1 px-4 rounded-full'>{directedBy}</span></p>
+      <p><span className="font-bold text-sm">Directed by:</span> <span className='inline-block mb-1 text-sm bg-fuchsia-500 p-1 px-4 rounded-full'>{directedBy}</span></p>
     </div>
   );
 }
 
-function SelectMovie(props) {
+function SelectMovie(props: { submitMovie: React.MouseEventHandler<HTMLButtonElement> | undefined; }) {
   return (
     <div className='-mr-5 mt-4 -mb-4'>
-      <button onClick={props.submitMovie} class="px-4 py-2 font-semibold text-sm bg-emerald-600 text-white rounded-sm shadow-sm ">+ Review</button>
+      <button onClick={props.submitMovie} className="px-4 py-2 font-semibold text-sm bg-emerald-600 text-white rounded-sm shadow-sm ">+ Review</button>
     </div>
   );
 }

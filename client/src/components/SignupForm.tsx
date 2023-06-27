@@ -8,7 +8,7 @@ const SignupForm = () => {
   const [country, setCountry] = useState('');
   const [bio, setBio] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     try {
       await axios.post(`${process.env.REACT_APP_API_URL}/users`, { username, email, password, country, bio });

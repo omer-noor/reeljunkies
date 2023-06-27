@@ -5,7 +5,7 @@ import { NavbarContext } from '../App';
 import logo from '../logo.png'
 
 function Navbar() {
-  const { signOut, user } = useAuth();
+  const { signOut, user } = useAuth()!;
   console.log(user)
   const isAuthenticated = !!user;
   const { isPostFormVisible, setIsPostFormVisible } = useContext(NavbarContext);
@@ -15,10 +15,10 @@ function Navbar() {
     signOut();
   }
 
-  const togglePostFormVisibility = (e) =>{
+  function togglePostFormVisibility(e: { preventDefault: () => void; }) {
     e.preventDefault();
     setIsPostFormVisible(true);
-    navigate('/'); 
+    navigate('/');
   }
 
   return (

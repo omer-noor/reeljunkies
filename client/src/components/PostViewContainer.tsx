@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PostView from './PostView';
+import { IPost } from '../../../models/post';
+import { IUser } from '../../../models/user';
 
-function PostViewContainer({ user: userId }) {
+interface PVCProps{
+  user?:IUser;
+  userId?:string;
+}
+function PostViewContainer({ user: userId }:PVCProps) {
   const [postData, setPostData] = useState([]);
 
   useEffect(() => {
@@ -28,7 +34,7 @@ function PostViewContainer({ user: userId }) {
     <div className='font-inter flex flex-col items-center p-6 rounded-lg text-white max-w-5xl mx-auto'>      
       {postData && (
         <div>
-          {postData.map(post => (
+          {postData.map((post:IPost) => (
             <PostView key={post._id} data={post} />
           ))}
         </div>

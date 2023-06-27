@@ -1,9 +1,10 @@
+export{};
 const express = require('express');
 const router = express.Router();
 const Comment = require('../models/comment');
 
 // GET all comments
-router.get('/', async (req, res) => {
+router.get('/', async (req: any, res: { json: (arg0: any) => void; status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; }) => {
   try {
     const comments = await Comment.find();
     res.json(comments);
@@ -14,7 +15,7 @@ router.get('/', async (req, res) => {
 });
 
 // POST a new comment
-router.post('/', async (req, res) => {
+router.post('/', async (req: { body: { user: any; post: any; content: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; }) => {
   try {
     const comment = new Comment({
       user: req.body.user,
@@ -30,7 +31,7 @@ router.post('/', async (req, res) => {
 });
 
 // GET a specific comment by ID
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req: { params: { id: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; json: (arg0: any) => void; }) => {
   try {
     const comment = await Comment.findById(req.params.id);
     if (!comment) {
@@ -44,7 +45,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // UPDATE a specific comment by ID
-router.put('/:id', async (req, res) => {
+router.put('/:id', async (req: { params: { id: any; }; body: { content: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; json: (arg0: any) => void; }) => {
   try {
     const comment = await Comment.findByIdAndUpdate(req.params.id, {
       content: req.body.content,
@@ -61,7 +62,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE a specific comment by ID
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req: { params: { id: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; json: (arg0: { message: string; }) => void; }) => {
   try {
     const comment = await Comment.findByIdAndDelete(req.params.id);
     if (!comment) {
@@ -75,3 +76,4 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
+

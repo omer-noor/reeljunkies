@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function SearchBar(props) {
+function SearchBar(props: { user: any; }) {
   const navigate = useNavigate();
   console.log(props, "PROPS");
   const user = props.user;
-  const navigateToUser = (e) => {
+  const navigateToUser = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     navigate(`/user/${user._id}`);
   };

@@ -6,14 +6,16 @@
   "scripts": {
     "server": "ts-node server.ts",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"nodemon --watch 'src/**/*' -e ts,tsx server.ts\" \"npm start --prefix client\" \"npm run watch:css\"",
+    "dev": "concurrently \"nodemon --watch '.' -e ts,tsx server.ts\" \"npm start --prefix client\" \"npm run watch:css\"",
     "test": "jest",
     "build:css": "tailwindcss build client/src/tailwind.css -o client/src/tailwind.output.css",
     "watch:css": "tailwindcss build client/src/tailwind.css -o client/src/tailwind.output.css --watch"
-  },  
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.2",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
@@ -34,6 +36,8 @@
     "@babel/preset-env": "^7.15.6",
     "@babel/preset-react": "^7.14.5",
     "@testing-library/jest-dom": "^5.16.5",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
     "babel-jest": "^27.4.6",
     "babel-plugin-macros": "^3.1.0",
     "faker": "^5.5.3",

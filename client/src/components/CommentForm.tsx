@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const CommentForm = ({ postId }) => {
+interface CommentFormProps {
+  postId:string;
+}
+
+const CommentForm:React.FC<CommentFormProps> = ({ postId }) => {
   const [content, setContent] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await axios.post('/comments', { post: postId, content });
@@ -29,7 +33,7 @@ const CommentForm = ({ postId }) => {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="Write your comment here..."
-              rows="4"
+              rows={4}
             />
           </div>
           <div className="flex justify-end w-full mt-3">
